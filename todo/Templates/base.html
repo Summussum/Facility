@@ -1,0 +1,35 @@
+{% load static %}
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="htmx-config"
+        content='{"responseHandling":[
+        {"code": "418", "swap": true},
+        {"code": "200", "swap": true},
+        {"code": "201", "swap": true},
+        {"code": "301", "swap": true},
+        {"code": "308", "swap": true},
+        {"code": "...", "swap": false}
+        ]}'
+        />
+        <title>Facility</title>
+        <script src="{% static 'htmx.min.js' %}" defer></script>
+        <link rel="icon" type="image/png" href="{% static 'favicon.ico' %}" >
+        <style>
+            h1 {text-align: center;}
+            h2 {text-align: center; font-size:18px;}
+            .centered {text-align: center;}
+            .center_table {border: 1px solid; margin: 0px auto; border-collapse: collapse;}
+            .center_table td, th {border: 1px solid; text-align: center;}
+            .htmx-indicator {height:1em; width: auto;}
+        </style>
+    </head>
+<body hx-headers='{"X-CSRFToken": "{{csrf_token}}"}'>
+{% block content %}
+{% endblock %}
+</body>
+
+
+</html>

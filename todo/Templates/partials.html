@@ -1,0 +1,93 @@
+
+
+{% block daily %}
+<label for name="interval">Your task will reset each day</label>
+    <br>
+    <input type="hidden" name="interval" value="1">
+{% endblock %}
+
+
+{% block weekly %}
+<label for name="interval">Please select the day of the week to reset this task:</label>
+    <br>
+    <select name="interval">
+        <option value="0">Monday</option>
+        <option value="1">Tuesday</option>
+        <option value="2">Wednesday</option>
+        <option value="3">Thursday</option>
+        <option value="4">Friday</option>
+        <option value="5">Saturday</option>
+        <option value="6">Sunday</option>
+    </select>
+{% endblock %}
+
+
+{% block monthly %}
+<label for name="interval">Please select the date to reset this task each month (1-28).</label>
+    <br>
+    <select name="interval">
+        {% for i in range %}
+        <option value="{{i}}">{{i}}</option>
+        {% endfor %}
+    </select>
+{% endblock %}
+
+
+{% block quarterly %}
+<label for name="interval">Your task will be due on the first day of each quarter.</label>
+    <br>
+    <input type="hidden" name="interval" value="1">
+{% endblock %}
+
+
+{% block yearly %}
+<label for name="interval">Please add the yearly due date in the numeric format MMDD</label>
+    <br>
+    <input type="number" name="interval">
+{% endblock %}
+
+
+{% block period %}
+<label for name="interval">Please enter how many days after completion this task should be redone.</label>
+    <br>
+    <input type="number" name="interval">
+{% endblock %}
+
+{% block new_task_form %}
+<form id="new_task" class="centered">
+    <label for name="taskname">Task name:</label>
+        <input type="text" name="taskname" placeholder="Name your task here">
+    <br>
+    <label for name="description">Description:</label>
+        <input type="text" name="description" placeholder="Describe your task here">
+    <br>
+    <label for name="schedule_type">Schedule Type:</label>
+        <select name="schedule_type" hx-trigger="change" hx-post="/schedule_type_select" hx-target="#interval_selector" hx-swap="OuterHTML" hx-include="#schedule_type">
+            <option value="daily">Daily</option>
+            <option value="weekly">Weekly</option>
+            <option value="monthly">Monthly</option>
+            <option value="quarterly">Quarterly</option>
+            <option value="yearly">Yearly</option>
+            <option value="period">Period</option>
+        </select>
+    <div class="interval_selector" id="interval_selector">
+        <label for name="interval">Your task will reset each day.</label>
+            <input type="hidden" name="interval" value="1"></div>
+    <input type="submit" hx-post="/create_task/" hx-target="#new_task" hx-swap="OuterHTML" hx-includes="#new_task">
+    <br><br>
+    <p>The task, {{task.taskname}}, has been created!</p>
+</form>
+<template>
+<tr hx-swap-oob="beforeend:#upcoming">
+    <td>
+        <br><button>Done!</button>
+        <br><br><button>Bump</button>
+        <br><br><button>Pause</button>
+    </td>
+    <td>{{task.taskname}}</td>
+    <td>{{task.deadline}}</td>
+    <td>{{task.description}}</td>
+    <td>{{task.previous}}</td>
+</tr>
+</template>
+{% endblock %}

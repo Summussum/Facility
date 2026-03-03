@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+<html>
+
+
+
+<body>
+    <h1>Facility app goes here</h1>
+<br>
+<br>
+
+
+<table class="center_table" id="daily">
+    <caption>Daily Tasks</caption>
+    <tr>
+        <th>Complete Task</th>
+        <th>Task</th>
+        <th>Deadline</th>
+        <th>Description</th>
+        <th>Last Done</th>
+    </tr>
+    {% for task in task_groups.daily %}
+    <tr>
+        <td>
+            <br><button>Done!</button>
+            <br><br><button>Bump</button>
+            <br><br><button>Pause</button>
+        </td>
+        <td>{{task.taskname}}</td>
+        <td>{{task.deadline}}</td>
+        <td>{{task.description}}</td>
+        <td>{{task.previous}}</td>
+    </tr>
+    {% endfor %}
+</table><br>
+<br>
+
+<table class="center_table" id="overdue">
+    <caption>Overdue Tasks</caption>
+    <tr>
+        <th>Complete Task</th>
+        <th>Task</th>
+        <th>Deadline</th>
+        <th>Description</th>
+        <th>Last Done</th>
+    </tr>
+    {% for task in task_groups.overdue %}
+    <tr>
+        <td>
+            <br><button>Done!</button>
+            <br><br><button>Bump</button>
+            <br><br><button>Pause</button>
+        </td>
+        <td>{{task.taskname}}</td>
+        <td>{{task.deadline}}</td>
+        <td>{{task.description}}</td>
+        <td>{{task.previous}}</td>
+    </tr>
+    {% endfor %}
+</table><br>
+<br>
+
+<table class="center_table" id="upcoming">
+    <caption>Upcoming Tasks</caption>
+    <tr>
+        <th>Complete Task</th>
+        <th>Task</th>
+        <th>Deadline</th>
+        <th>Description</th>
+        <th>Last Done</th>
+    </tr>
+    {% for task in task_groups.upcoming %}
+    <tr>
+        <td>
+            <br><button>Done!</button>
+            <br><br><button>Bump</button>
+            <br><br><button>Pause</button>
+        </td>
+        <td>{{task.taskname}}</td>
+        <td>{{task.deadline}}</td>
+        <td>{{task.description}}</td>
+        <td>{{task.previous}}</td>
+    </tr>
+    {% endfor %}
+</table>
+<br>
+<br>
+
+
+<form id="new_task" class="centered">
+    <label for name="taskname">Task name:</label>
+        <input type="text" name="taskname" placeholder="Name your task here">
+    <br>
+    <label for name="description">Description:</label>
+        <input type="text" name="description" placeholder="Describe your task here">
+    <br>
+    <label for name="schedule_type">Schedule Type:</label>
+        <select name="schedule_type" hx-trigger="change" hx-post="/schedule_type_select" hx-target="#interval_selector" hx-swap="OuterHTML" hx-include="#schedule_type">
+            <option value="daily">Daily</option>
+            <option value="weekly">Weekly</option>
+            <option value="monthly">Monthly</option>
+            <option value="quarterly">Quarterly</option>
+            <option value="yearly">Yearly</option>
+            <option value="period">Period</option>
+        </select>
+    <div class="interval_selector" id="interval_selector">
+        <label for name="interval">Your task will reset each day.</label>
+            <input type="hidden" name="interval" value="1"></div>
+    <input type="submit" hx-post="/create_task/" hx-target="#new_task" hx-swap="OuterHTML" hx-includes="#new_task">
+
+</form>
+
+
+
+
+</body>
+
+
+
+</html>
+{% endblock %}
