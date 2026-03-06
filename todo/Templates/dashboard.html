@@ -24,10 +24,11 @@
     </tr>
     {% for task in task_groups.daily %}
     <tr>
-        <td>
-            <br><button>Done!</button>
-            <br><br><button>Bump</button>
-            <br><br><button>Pause</button>
+        <td id="task_{{task.task_id}}">
+            <br><button hx-post="/log_task/{{task.task_id}}" hx-target="body">Done!</button>
+            <br><br><button hx-post="/bump_task/{{task.task_id}}" hx-target="body">Bump</button>
+            <br><br><button hx-post="/pause_task/{{task.task_id}}" hx-target="body">Pause</button>
+            <br><div style="color:white">_</div>
         </td>
         <td>{{task.taskname}}</td>
         <td>{{task.deadline}}</td>
@@ -49,10 +50,11 @@
     </tr>
     {% for task in task_groups.overdue %}
     <tr>
-        <td>
-            <br><button>Done!</button>
-            <br><br><button>Bump</button>
-            <br><br><button>Pause</button>
+        <td id="task_{{task.task_id}}">
+            <br><button hx-post="/log_task/{{task.task_id}}" hx-target="body">Done!</button>
+            <br><br><button hx-post="/bump_task/{{task.task_id}}" hx-target="body">Bump</button>
+            <br><br><button hx-post="/pause_task/{{task.task_id}}" hx-target="body">Pause</button>
+            <br><div style="color:white">_</div>
         </td>
         <td>{{task.taskname}}</td>
         <td>{{task.deadline}}</td>
@@ -74,10 +76,11 @@
     </tr>
     {% for task in task_groups.upcoming %}
     <tr>
-        <td>
-            <br><button>Done!</button>
-            <br><br><button>Bump</button>
-            <br><br><button>Pause</button>
+        <td id="task_{{task.task_id}}">
+            <br><button hx-post="/log_task/{{task.task_id}}" hx-target="body">Done!</button>
+            <br><br><button hx-post="/bump_task/{{task.task_id}}" hx-target="body">Bump</button>
+            <br><br><button hx-post="/pause_task/{{task.task_id}}" hx-target="body">Pause</button>
+            <br><div style="color:white">_</div>
         </td>
         <td>{{task.taskname}}</td>
         <td>{{task.deadline}}</td>
@@ -110,10 +113,36 @@
         <label for name="interval">Your task will reset each day.</label>
             <input type="hidden" name="interval" value="1"></div>
     <input type="submit" hx-post="/create_task/" hx-target="#new_task" hx-swap="OuterHTML" hx-includes="#new_task">
-
 </form>
+<br><br>
 
 
+
+<table class="center_table" id="paused">
+    <caption>Paused Tasks</caption>
+    <tr>
+        <th>Complete Task</th>
+        <th>Task</th>
+        <th>Deadline</th>
+        <th>Description</th>
+        <th>Last Done</th>
+    </tr>
+    {% for task in task_groups.paused %}
+    <tr>
+        <td id="task_{{task.task_id}}">
+            <br><button hx-post="/log_task/{{task.task_id}}" hx-target="body">Done!</button>
+            <br><br><button hx-post="/bump_task/{{task.task_id}}" hx-target="body">Bump</button>
+            <br><br><button hx-post="/pause_task/{{task.task_id}}" hx-target="body">Pause</button>
+            <br><div style="color:white">_</div>
+        </td>
+        <td>{{task.taskname}}</td>
+        <td>{{task.deadline}}</td>
+        <td>{{task.description}}</td>
+        <td>{{task.previous}}</td>
+    </tr>
+    {% endfor %}
+</table>
+<br>
 
 
 </body>

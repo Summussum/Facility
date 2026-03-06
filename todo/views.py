@@ -39,14 +39,31 @@ def create_task(request):
     return HttpResponse(html)
 
 def log_task(request, task_id):
-    task = Tasks.objects.get(task_id=task_id).first()
+    timestamp = datetime.now()
+    task = Tasks.objects.get(task_id=task_id)
     new_log = Logs(
         task = task,
-        timestamp = datetime.now(),
+        timestamp = timestamp,
         delay = task.interval,
-        data = serializers.serialize('json', task)
+        data = serializers.serialize('json', Tasks.objects.filter(task_id=task_id).all())
     )
     new_log.save()
     task.deadline = task.next_deadline()
-    task.previous = datetime.now()
+    task.previous = timestamp
     task.save()
+    response = home(request)
+    return response
+
+def bump_task(request, task_id):
+    task = Tasks.objects.get(task_id=task_id)
+    task.deadline = task.next_deadline()
+    task.save()
+    response = home(request)
+    return response
+
+def pause_task(request, task_id):
+    task = Tasks.objects.get(task_id=task_id)
+    task.deadline = None
+    task.save()
+    response = home(request)
+    return response

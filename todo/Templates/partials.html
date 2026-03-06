@@ -79,10 +79,11 @@
 </form>
 <template>
 <tr hx-swap-oob="beforeend:#upcoming">
-    <td>
-        <br><button>Done!</button>
-        <br><br><button>Bump</button>
-        <br><br><button>Pause</button>
+    <td id="task_{{task.task_id}}">
+        <br><button hx-post="/log_task/{{task.task_id}}" hx-target="body">Done!</button>
+        <br><br><button hx-post="/bump_task/{{task.task_id}}" hx-target="body">Bump</button>
+        <br><br><button hx-post="/pause_task/{{task.task_id}}" hx-target="body">Pause</button>
+        <br><div style="color:white">_</div>
     </td>
     <td>{{task.taskname}}</td>
     <td>{{task.deadline}}</td>

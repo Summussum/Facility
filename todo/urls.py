@@ -21,5 +21,8 @@ from . import views
 urlpatterns = [
     path('', views.home, name="home"),
     path('schedule_type_select', views.schedule_type_select, name="schedule_type_select"),
-    path('create_task/', views.create_task, name="create_task")
+    path('create_task/', views.create_task, name="create_task"),
+    path('log_task/<int:task_id>', views.log_task, name="log_task"),
+    path('bump_task/<int:task_id>', views.bump_task, name="bump_task"),
+    path('pause_task/<int:task_id>', views.pause_task, name="pause_task")
 ]

@@ -11,7 +11,7 @@ class Tasks(models.Model):
     
     taskname = models.TextField()
     description = models.TextField(blank=True, null=True)
-    deadline = models.DateField()
+    deadline = models.DateField(blank=True, null=True)
     schedule_type = models.TextField(default="daily") #daily, weekly, monthly, quarterly, yearly, period
     interval = models.SmallIntegerField(blank=True, null=True)
     previous = models.DateTimeField(default=datetime.now())
