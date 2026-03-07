@@ -28,7 +28,7 @@
             <br><button hx-post="/log_task/{{task.task_id}}" hx-target="body">Done!</button>
             <br><br><button hx-post="/bump_task/{{task.task_id}}" hx-target="body">Bump</button>
             <br><br><button hx-post="/pause_task/{{task.task_id}}" hx-target="body">Pause</button>
-            <br><div style="color:white">_</div>
+            <br><div style="color:transparent">_</div>
         </td>
         <td>{{task.taskname}}</td>
         <td>{{task.deadline}}</td>
@@ -54,7 +54,7 @@
             <br><button hx-post="/log_task/{{task.task_id}}" hx-target="body">Done!</button>
             <br><br><button hx-post="/bump_task/{{task.task_id}}" hx-target="body">Bump</button>
             <br><br><button hx-post="/pause_task/{{task.task_id}}" hx-target="body">Pause</button>
-            <br><div style="color:white">_</div>
+            <br><div style="color:transparent">_</div>
         </td>
         <td>{{task.taskname}}</td>
         <td>{{task.deadline}}</td>
@@ -80,7 +80,7 @@
             <br><button hx-post="/log_task/{{task.task_id}}" hx-target="body">Done!</button>
             <br><br><button hx-post="/bump_task/{{task.task_id}}" hx-target="body">Bump</button>
             <br><br><button hx-post="/pause_task/{{task.task_id}}" hx-target="body">Pause</button>
-            <br><div style="color:white">_</div>
+            <br><div style="color:transparent">_</div>
         </td>
         <td>{{task.taskname}}</td>
         <td>{{task.deadline}}</td>
@@ -132,8 +132,8 @@
         <td id="task_{{task.task_id}}">
             <br><button hx-post="/log_task/{{task.task_id}}" hx-target="body">Done!</button>
             <br><br><button hx-post="/bump_task/{{task.task_id}}" hx-target="body">Bump</button>
-            <br><br><button hx-post="/pause_task/{{task.task_id}}" hx-target="body">Pause</button>
-            <br><div style="color:white">_</div>
+            <br><br><button hx-post="/pause_task/{{task.task_id}}" hx-target="body">Unpause</button>
+            <br><div style="color:transparent">_</div>
         </td>
         <td>{{task.taskname}}</td>
         <td>{{task.deadline}}</td>

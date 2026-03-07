@@ -35,7 +35,10 @@ def create_task(request):
     logging.debug("task initialized")
     task.next_deadline()
     task.save()
-    html = render_block_to_string("partials.html", "new_task_form", context={"task": task})
+    table = "upcoming"
+    if task.schedule_type == "daily":
+        table = "daily"
+    html = render_block_to_string("partials.html", "new_task_form", context={"task": task, "table": table})
     return HttpResponse(html)
 
 def log_task(request, task_id):
@@ -56,14 +59,18 @@ def log_task(request, task_id):
 
 def bump_task(request, task_id):
     task = Tasks.objects.get(task_id=task_id)
-    task.deadline = task.next_deadline()
+    task.deadline = task.bump()
+    logger.debug(f"{{task_id}}")
     task.save()
     response = home(request)
     return response
 
 def pause_task(request, task_id):
     task = Tasks.objects.get(task_id=task_id)
-    task.deadline = None
+    if task.deadline is None:
+        task.next_deadline()
+    else:
+        task.deadline = None
     task.save()
     response = home(request)
     return response
