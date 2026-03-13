@@ -2,7 +2,7 @@ from datetime import date
 
 
 def get_task_groups(task_data):
-    daily = task_data.filter(schedule_type="daily", deadline__isnull=False).order_by('deadline')
+    daily = task_data.filter(schedule_type="daily", deadline__isnull=False, previous__lt = date.today()).order_by('deadline')
     weekly = task_data.filter(schedule_type="weekly", deadline__isnull=False).order_by('deadline')
     monthly = task_data.filter(schedule_type="monthly", deadline__isnull=False).order_by('deadline')
     quarterly = task_data.filter(schedule_type="quarterly", deadline__isnull=False).order_by('deadline')
