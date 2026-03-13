@@ -16,19 +16,18 @@
 <table class="center_table" id="daily">
     <caption>Daily Tasks</caption>
     <tr>
-        <th>Complete Task</th>
+        <th class="button_column">Complete Task</th>
         <th>Task</th>
         <th>Deadline</th>
         <th>Description</th>
         <th>Last Done</th>
     </tr>
     {% for task in task_groups.daily %}
-    <tr>
-        <td id="task_{{task.task_id}}">
-            <br><button hx-post="/log_task/{{task.task_id}}" hx-target="body">Done!</button>
-            <br><br><button hx-post="/bump_task/{{task.task_id}}" hx-target="body">Bump</button>
-            <br><br><button hx-post="/pause_task/{{task.task_id}}" hx-target="body">Pause</button>
-            <br><div style="color:transparent">_</div>
+    <tr class="{{task.schedule_type}}">
+        <td id="task_{{task.task_id}}" class="button_column">
+            <button hx-post="/log_task/{{task.task_id}}" hx-target="body">Done!</button>
+            <br><button hx-post="/bump_task/{{task.task_id}}" hx-target="body">Bump</button>
+            <br><button hx-post="/pause_task/{{task.task_id}}" hx-target="body">Pause</button>
         </td>
         <td>{{task.taskname}}</td>
         <td>{{task.deadline}}</td>
@@ -42,19 +41,18 @@
 <table class="center_table" id="overdue">
     <caption>Overdue Tasks</caption>
     <tr>
-        <th>Complete Task</th>
+        <th class="button_column">Complete Task</th>
         <th>Task</th>
         <th>Deadline</th>
         <th>Description</th>
         <th>Last Done</th>
     </tr>
     {% for task in task_groups.overdue %}
-    <tr>
-        <td id="task_{{task.task_id}}">
-            <br><button hx-post="/log_task/{{task.task_id}}" hx-target="body">Done!</button>
-            <br><br><button hx-post="/bump_task/{{task.task_id}}" hx-target="body">Bump</button>
-            <br><br><button hx-post="/pause_task/{{task.task_id}}" hx-target="body">Pause</button>
-            <br><div style="color:transparent">_</div>
+    <tr class="{{task.schedule_type}}">
+        <td id="task_{{task.task_id}}" class="button_column">
+            <button hx-post="/log_task/{{task.task_id}}" hx-target="body">Done!</button>
+            <br><button hx-post="/bump_task/{{task.task_id}}" hx-target="body">Bump</button>
+            <br><button hx-post="/pause_task/{{task.task_id}}" hx-target="body">Pause</button>
         </td>
         <td>{{task.taskname}}</td>
         <td>{{task.deadline}}</td>
@@ -68,23 +66,22 @@
 <table class="center_table" id="upcoming">
     <caption>Upcoming Tasks</caption>
     <tr>
-        <th>Complete Task</th>
+        <th class="button_column">Complete Task</th>
         <th>Task</th>
         <th>Deadline</th>
         <th>Description</th>
         <th>Last Done</th>
     </tr>
     {% for task in task_groups.upcoming %}
-    <tr>
-        <td id="task_{{task.task_id}}">
-            <br><button hx-post="/log_task/{{task.task_id}}" hx-target="body">Done!</button>
-            <br><br><button hx-post="/bump_task/{{task.task_id}}" hx-target="body">Bump</button>
-            <br><br><button hx-post="/pause_task/{{task.task_id}}" hx-target="body">Pause</button>
-            <br><div style="color:transparent">_</div>
+    <tr class="{{task.schedule_type}}">
+        <td id="task_{{task.task_id}}" class="button_column">
+            <button hx-post="/log_task/{{task.task_id}}" hx-target="body">Done!</button>
+            <br><button hx-post="/bump_task/{{task.task_id}}" hx-target="body">Bump</button>
+            <br><button hx-post="/pause_task/{{task.task_id}}" hx-target="body">Pause</button>
         </td>
         <td>{{task.taskname}}</td>
         <td>{{task.deadline}}</td>
-        <td>{{task.description}}</td>
+        <td>{{task.description}}<br><div class="schedule_type">({{task.schedule_type}})</div></td>
         <td>{{task.previous}}</td>
     </tr>
     {% endfor %}
@@ -108,6 +105,7 @@
             <option value="quarterly">Quarterly</option>
             <option value="yearly">Yearly</option>
             <option value="period">Period</option>
+            <option value="single">One and Done</option>
         </select>
     <div class="interval_selector" id="interval_selector">
         <label for name="interval">Your task will reset each day.</label>
@@ -121,19 +119,18 @@
 <table class="center_table" id="paused">
     <caption>Paused Tasks</caption>
     <tr>
-        <th>Complete Task</th>
+        <th class="button_column">Complete Task</th>
         <th>Task</th>
         <th>Deadline</th>
         <th>Description</th>
         <th>Last Done</th>
     </tr>
     {% for task in task_groups.paused %}
-    <tr>
-        <td id="task_{{task.task_id}}">
-            <br><button hx-post="/log_task/{{task.task_id}}" hx-target="body">Done!</button>
-            <br><br><button hx-post="/bump_task/{{task.task_id}}" hx-target="body">Bump</button>
-            <br><br><button hx-post="/pause_task/{{task.task_id}}" hx-target="body">Unpause</button>
-            <br><div style="color:transparent">_</div>
+    <tr class="{{task.schedule_type}}">
+        <td id="task_{{task.task_id}}" class="button_column">
+            <button hx-post="/log_task/{{task.task_id}}" hx-target="body">Done!</button>
+            <br><button hx-post="/bump_task/{{task.task_id}}" hx-target="body">Bump</button>
+            <br><button hx-post="/pause_task/{{task.task_id}}" hx-target="body">Unpause</button>
         </td>
         <td>{{task.taskname}}</td>
         <td>{{task.deadline}}</td>

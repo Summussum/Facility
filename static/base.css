@@ -1,0 +1,110 @@
+body {
+    background-color: seashell;
+}
+
+h1 {
+    text-align: center;
+}
+
+h2 {
+    text-align: center; font-size:18px;
+}
+
+button {
+    background-color: white;
+    font-weight: bold;
+    border-style: solid;
+    border-color: goldenrod;
+    border-radius: 12px;
+    border-width: 3px;
+    color: black;
+    padding: 4.5px;
+    margin: 7px;
+}
+
+.centered {
+    text-align: center;
+}
+
+.center_table {
+    margin: 0px auto;
+    width: 95%;
+    padding: 0px;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.center_table th {
+    background-color: rgb(241, 212, 179);
+    width: 23%;
+    border: 1px solid;
+    font-weight: 600;
+    text-align: center;
+    padding: 7px;
+}
+
+.center_table td {
+    border: 1px solid;
+    width: 23%;
+    font-weight: 600;
+    text-align: center;
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
+
+.center_table th:first-of-type {
+    border-top-left-radius: 30px;
+    width: 8%;
+}
+
+.center_table th:last-of-type {
+    border-top-right-radius: 30px;
+}
+
+.center_table tr:last-of-type td:first-of-type {
+    border-bottom-left-radius: 30px;
+}
+
+.center_table tr:last-of-type td:last-of-type {
+    border-bottom-right-radius: 30px;
+}
+
+.center_table td.button_column {
+    width: 8%;
+}
+
+.htmx-indicator {
+    height:1em; width: auto;
+}
+
+.daily {
+    background-color: rgb(91, 199, 127);
+}
+
+.weekly {
+ background-color: rgb(175, 175, 101);
+}
+
+.monthly {
+    background-color: rgb(175, 216, 255);
+}
+
+.quarterly {
+    background-color: rgb(252, 206, 249);
+}
+
+.yearly {
+    background-color: rgb(248, 175, 175);
+}
+
+.custom {
+    background-color: rgb(243, 220, 177);
+}
+
+.single {
+    background-color: honeydew;
+}
+
+.schedule_type {
+    color: rgb(146, 145, 145);
+}

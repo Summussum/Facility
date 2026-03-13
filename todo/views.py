@@ -24,15 +24,22 @@ def schedule_type_select(request):
 
 
 def create_task(request):
-    logging.debug("create_task started")
+    logging.error("create_task started")
+    if request.POST.get("deadline"):
+        deadline = date.fromisoformat(request.POST.get("deadline"))
+        logger.error(f"{type(deadline)}, {deadline}")
+    else:
+        deadline = date.today()
     task = Tasks(
         taskname = request.POST.get("taskname"),
         description = request.POST.get("description"),
-        deadline = date.today(),
+        deadline = deadline,
         schedule_type = request.POST.get("schedule_type"),
         interval = int(request.POST.get("interval"))
         )
-    logging.debug("task initialized")
+    logging.error("task initialized")
+    if request.POST.get("deadline"):
+        task.interval = task.deadline.toordinal()
     task.next_deadline()
     task.save()
     table = "upcoming"
@@ -51,8 +58,9 @@ def log_task(request, task_id):
         data = serializers.serialize('json', Tasks.objects.filter(task_id=task_id).all())
     )
     new_log.save()
-    task.deadline = task.next_deadline()
     task.previous = timestamp
+    task.save()
+    task.deadline = task.next_deadline()
     task.save()
     response = home(request)
     return response
@@ -68,8 +76,12 @@ def bump_task(request, task_id):
 def pause_task(request, task_id):
     task = Tasks.objects.get(task_id=task_id)
     if task.deadline is None:
+        if task.schedule_type == "yearly" or "single":
+            task.deadline = date.fromordinal(task.interval)
         task.next_deadline()
     else:
+        if task.schedule_type == "yearly" or "single":
+            task.interval = date.toordinal(task.deadline)
         task.deadline = None
     task.save()
     response = home(request)

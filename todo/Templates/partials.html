@@ -41,9 +41,10 @@
 
 
 {% block yearly %}
-<label for name="interval">Please add the yearly due date in the numeric format MMDD</label>
+<label for name="interval">Please select a deadline for this task.<br>This task will renew annualy.</label>
     <br>
-    <input type="number" name="interval">
+    <input type="date" name="deadline">
+    <input type="hidden" name="interval" value="0">
 {% endblock %}
 
 
@@ -52,6 +53,16 @@
     <br>
     <input type="number" name="interval">
 {% endblock %}
+
+
+{% block single %}
+<label for name="interval">Please select a deadline for this task.</label>
+    <br>
+    <input type="date" name="deadline">
+    <input type="hidden" name="interval" value="0">
+{% endblock %}
+
+
 
 {% block new_task_form %}
 <form id="new_task" class="centered">
@@ -69,6 +80,7 @@
             <option value="quarterly">Quarterly</option>
             <option value="yearly">Yearly</option>
             <option value="period">Period</option>
+            <option value="single">One and Done</option>
         </select>
     <div class="interval_selector" id="interval_selector">
         <label for name="interval">Your task will reset each day.</label>
@@ -79,7 +91,7 @@
 </form>
 <template>
     <tbody hx-swap-oob="beforeend:#{{table}}">
-        <tr>
+        <tr class="{{task.schedule_type}}">
             <td id="task_{{task.task_id}}">
                 <br><button hx-post="/log_task/{{task.task_id}}" hx-target="body">Done!</button>
                 <br><br><button hx-post="/bump_task/{{task.task_id}}" hx-target="body">Bump</button>
