@@ -117,6 +117,33 @@
 
 
 
+<table class="center_table" id="today">
+    <caption>Tasks Done Today</caption>
+    <tr>
+        <th class="button_column">Complete Task</th>
+        <th>Task</th>
+        <th>Deadline</th>
+        <th>Description</th>
+        <th>Last Done</th>
+    </tr>
+    {% for task in task_groups.today %}
+    <tr class="{{task.schedule_type}}">
+        <td id="task_{{task.task_id}}" class="button_column">
+            <button hx-post="/log_task/{{task.task_id}}" hx-target="body">Done!</button>
+            <br><button hx-post="/bump_task/{{task.task_id}}" hx-target="body">Bump</button>
+            <br><button hx-post="/pause_task/{{task.task_id}}" hx-target="body">Pause</button>
+        </td>
+        <td>{{task.taskname}}</td>
+        <td>{{task.deadline}}</td>
+        <td>{{task.description}}<br><div class="schedule_type">({{task.schedule_type}})</div></td>
+        <td>{{task.previous}}</td>
+    </tr>
+    {% endfor %}
+</table><br>
+<br>
+
+
+
 <table class="center_table" id="paused">
     <caption>Paused Tasks</caption>
     <tr>
