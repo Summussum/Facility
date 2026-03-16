@@ -89,7 +89,7 @@ def pause_task(request, task_id):
     if task.status == "paused":
         if task.schedule_type == "yearly" or task.schedule_type == "single":
             task.deadline = date.fromordinal(task.interval)
-            task.status = "active"
+        task.status = "active"
         task.next_deadline()
     else:
         if task.schedule_type == "yearly" or task.schedule_type == "single":
