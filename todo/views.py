@@ -17,6 +17,7 @@ def home(request):
     response = render(request, "dashboard.html", context={"task_groups": task_groups})
     return response
 
+
 def schedule_type_select(request):
     schedule_type = request.POST.get("schedule_type")
     html = render_block_to_string("partials.html", schedule_type, context={"range": range(1,29,1)})
@@ -48,6 +49,7 @@ def create_task(request):
     html = render_block_to_string("partials.html", "new_task_form", context={"task": task, "table": table})
     return HttpResponse(html)
 
+
 def log_task(request, task_id):
     timestamp = datetime.now()
     task = Tasks.objects.get(task_id=task_id)
@@ -59,11 +61,17 @@ def log_task(request, task_id):
     )
     new_log.save()
     task.previous = timestamp
-    task.save()
+    if task.schedule_type == "single":
+        task.status = "archived"
+        task.save()
+        response = home(request)
+        return response
+    
     task.deadline = task.next_deadline()
     task.save()
     response = home(request)
     return response
+
 
 def bump_task(request, task_id):
     task = Tasks.objects.get(task_id=task_id)
@@ -73,16 +81,18 @@ def bump_task(request, task_id):
     response = home(request)
     return response
 
+
 def pause_task(request, task_id):
     task = Tasks.objects.get(task_id=task_id)
-    if task.deadline is None:
-        if task.schedule_type == "yearly" or "single":
+    if task.status == "paused":
+        if task.schedule_type == "yearly" or task.schedule_type == "single":
             task.deadline = date.fromordinal(task.interval)
+            task.status = "active"
         task.next_deadline()
     else:
-        if task.schedule_type == "yearly" or "single":
+        if task.schedule_type == "yearly" or task.schedule_type == "single":
             task.interval = date.toordinal(task.deadline)
-        task.deadline = None
+        task.status = "paused"
     task.save()
     response = home(request)
     return response

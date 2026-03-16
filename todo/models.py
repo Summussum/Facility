@@ -16,6 +16,7 @@ class Tasks(models.Model):
     deadline = models.DateField(blank=True, null=True)
     schedule_type = models.TextField(default="daily") #daily, weekly, monthly, quarterly, yearly, period, single
     interval = models.IntegerField(blank=True, null=True)
+    status = models.TextField(default="active") #active, paused, archive
     previous = models.DateTimeField(blank=True, null=True)
 
     def next_deadline(self):
