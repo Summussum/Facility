@@ -99,6 +99,19 @@ class Tasks(models.Model):
                     self.deadline.day = month_range
                 self.deadline = date(today.year+1, self.deadline.month, self.deadline.day)
         return self.deadline
+    
+    def get_task_dict(self):
+        task_dict = {
+            "task_id": self.task_id,
+            "taskname": self.taskname,
+            "description": self.description,
+            "deadline": self.deadline,
+            "schedule_type": self.schedule_type,
+            "interval": self.interval,
+            "status": self.status,
+            "previous": self.previous
+        }
+        return task_dict
 
 
 class Logs(models.Model):

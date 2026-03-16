@@ -57,7 +57,7 @@ def log_task(request, task_id):
         task = task,
         timestamp = timestamp,
         delay = task.interval,
-        data = serializers.serialize('json', Tasks.objects.filter(task_id=task_id).all())
+        data = task.get_task_dict()
     )
     new_log.save()
     task.previous = timestamp

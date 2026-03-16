@@ -8,7 +8,7 @@ def get_task_groups(task_data):
     quarterly = task_data.filter(schedule_type="quarterly", status="active").order_by('deadline')
     yearly = task_data.filter(schedule_type="yearly", status="active").order_by('deadline')
     custom = task_data.filter(schedule_type="custom", status="active").order_by('deadline')
-    overdue = task_data.filter(deadline__lt=date.today(), status="active").exclude(schedule_type="daily").order_by('deadline')
+    overdue = task_data.filter(deadline__lte=date.today(), status="active").exclude(schedule_type="daily").order_by('deadline')
     upcoming = task_data.filter(deadline__gte = date.today(), status="active").exclude(schedule_type="daily").order_by('deadline')
     today = task_data.filter(previous__date = date.today())
     paused = task_data.filter(status="paused")
