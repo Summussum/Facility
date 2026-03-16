@@ -105,11 +105,11 @@ class Tasks(models.Model):
             "task_id": self.task_id,
             "taskname": self.taskname,
             "description": self.description,
-            "deadline": self.deadline,
+            "deadline": str(self.deadline),
             "schedule_type": self.schedule_type,
             "interval": self.interval,
             "status": self.status,
-            "previous": self.previous
+            "previous": str(self.previous)
         }
         return task_dict
 
@@ -118,7 +118,7 @@ class Logs(models.Model):
     log_id = models.AutoField(primary_key=True)
     task = models.ForeignKey(Tasks, models.CASCADE)
 
-    data = models.JSONField(blank=True, null=True)
+    data = models.TextField(blank=True, null=True)
     delay = models.IntegerField(blank=True, null=True)
     timestamp = models.DateField()
     notes = models.TextField(blank=True, null=True)

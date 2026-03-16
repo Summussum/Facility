@@ -6,6 +6,7 @@ from todo.models import User, Tasks, Logs
 from todo.utility import get_task_groups
 from datetime import datetime, date, timedelta
 import logging
+import json
 
 # Create your views here.
 logger = logging.getLogger(__name__)
@@ -53,11 +54,12 @@ def create_task(request):
 def log_task(request, task_id):
     timestamp = datetime.now()
     task = Tasks.objects.get(task_id=task_id)
+    task_dict = task.get_task_dict()
     new_log = Logs(
         task = task,
         timestamp = timestamp,
-        delay = task.interval,
-        data = task.get_task_dict()
+        delay = task.interval, #change this to a timedelta?
+        data = json.dumps(task_dict)
     )
     new_log.save()
     task.previous = timestamp
