@@ -82,31 +82,31 @@ button {
 }
 
 .daily {
-    background-color: rgb(91, 199, 127);
+    background-color: #B4FFB4;
 }
 
 .weekly {
- background-color: rgb(175, 175, 101);
+    background-color: #96FFFF;
 }
 
 .monthly {
-    background-color: rgb(175, 216, 255);
+    background-color: #B4D7FF;
 }
 
 .quarterly {
-    background-color: rgb(252, 206, 249);
+    background-color: #FFDC96;
 }
 
 .yearly {
-    background-color: rgb(248, 175, 175);
+    background-color: #FFD2D2;
 }
 
-.custom {
-    background-color: rgb(243, 220, 177);
+.period {
+    background-color: #FFFFBE;
 }
 
 .single {
-    background-color: honeydew;
+    background-color: #F0FFD7;
 }
 
 .schedule_type {
