@@ -55,10 +55,14 @@ def log_task(request, task_id):
     timestamp = datetime.now()
     task = Tasks.objects.get(task_id=task_id)
     task_dict = task.get_task_dict()
+    if task.previous:
+        delay = (timestamp-task.previous).days
+    else:
+        delay = 0
     new_log = Logs(
         task = task,
         timestamp = timestamp,
-        delay = task.interval, #change this to a timedelta?
+        delay = delay, #change this to a timedelta?
         data = json.dumps(task_dict)
     )
     new_log.save()
@@ -68,8 +72,10 @@ def log_task(request, task_id):
         task.save()
         response = home(request)
         return response
-    
-    task.deadline = task.next_deadline()
+    if task.deadline < timestamp:
+        task.deadline = task.next_deadline()
+    else:
+        task.deadline = task.bump()
     task.save()
     response = home(request)
     return response
