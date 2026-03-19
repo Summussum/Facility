@@ -19,7 +19,6 @@
         <input type="text" name="taskname" placeholder="Name your task here">
     <label for name="description">Description:</label>
         <input type="text" name="description" placeholder="Describe your task here">
-    <br>
     <label for name="schedule_type">Schedule Type:</label>
         <select name="schedule_type" hx-trigger="change" hx-post="/schedule_type_select" hx-target="#interval_selector" hx-swap="OuterHTML" hx-include="#schedule_type">
             <option value="daily">Daily</option>
