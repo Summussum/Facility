@@ -68,10 +68,8 @@
 <form id="new_task" class="centered">
     <label for name="taskname">Task name:</label>
         <input type="text" name="taskname" placeholder="Name your task here">
-    <br>
     <label for name="description">Description:</label>
         <input type="text" name="description" placeholder="Describe your task here">
-    <br>
     <label for name="schedule_type">Schedule Type:</label>
         <select name="schedule_type" hx-trigger="change" hx-post="/schedule_type_select" hx-target="#interval_selector" hx-swap="OuterHTML" hx-include="#schedule_type">
             <option value="daily">Daily</option>
@@ -86,8 +84,6 @@
         <label for name="interval">Your task will reset each day.</label>
             <input type="hidden" name="interval" value="1"></div>
     <input type="submit" hx-post="/create_task/" hx-target="#new_task" hx-swap="OuterHTML" hx-includes="#new_task">
-    <br><br>
-    <p>The task, {{task.taskname}}, has been created!</p>
 </form>
 <template>
     <tbody hx-swap-oob="beforeend:#{{table}}">
