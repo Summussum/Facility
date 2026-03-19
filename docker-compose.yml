@@ -4,5 +4,5 @@ services:
     volumes:
       - .:/facility
     ports:
-      - "8014:8014"
-    command: sh -c "pwd && python3 manage.py makemigrations && python3 manage.py makemigrations todo && python3 manage.py migrate && gunicorn facility.wsgi:application --bind 0.0.0.0:8014"
+      - "8013:8013"
+    command: sh -c "pwd && python3 manage.py makemigrations && python3 manage.py makemigrations todo && python3 manage.py migrate && gunicorn facility.wsgi:application --bind 0.0.0.0:8013"
