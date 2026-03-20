@@ -53,6 +53,7 @@ def create_task(request):
 
 def log_task(request, task_id):
     timestamp = datetime.now()
+    today = date.today()
     task = Tasks.objects.get(task_id=task_id)
     task_dict = task.get_task_dict()
     if task.previous:
@@ -72,7 +73,7 @@ def log_task(request, task_id):
         task.save()
         response = home(request)
         return response
-    if task.deadline < timestamp:
+    if task.deadline < today:
         task.deadline = task.next_deadline()
     else:
         task.deadline = task.bump()
